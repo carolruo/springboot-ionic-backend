@@ -1,5 +1,6 @@
 package com.carolruo.projeto.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,7 +19,8 @@ public class Product implements Serializable {
     private Integer id;
     private String name;
     private BigDecimal price;
-    @JsonIgnore
+//    @JsonIgnore
+    @JsonBackReference
     @ManyToMany
     @JoinTable(
             name = "PRODUCT_CATEGORY", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id")

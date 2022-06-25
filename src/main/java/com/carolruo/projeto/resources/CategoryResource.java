@@ -22,6 +22,7 @@ public class CategoryResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> listar(@PathVariable Integer id) {
 
+
         Category category = categoryService.find(id);
         return ResponseEntity.ok().body(category);
     }
