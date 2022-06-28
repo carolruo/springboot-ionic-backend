@@ -1,9 +1,13 @@
 package com.carolruo.projeto;
 
 import com.carolruo.projeto.domain.Category;
+import com.carolruo.projeto.domain.City;
 import com.carolruo.projeto.domain.Product;
+import com.carolruo.projeto.domain.State;
 import com.carolruo.projeto.repositories.CategoryRepository;
+import com.carolruo.projeto.repositories.CityRepository;
 import com.carolruo.projeto.repositories.ProductRepository;
+import com.carolruo.projeto.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +23,10 @@ public class ProjetoApplication implements CommandLineRunner {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private CityRepository cityRepository;
+	@Autowired
+	private StateRepository stateRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoApplication.class, args);
@@ -41,8 +49,24 @@ public class ProjetoApplication implements CommandLineRunner {
 		p2.getCategories().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategories().add(cat1);
 
-
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+		State est1 = new State(null, "Minas Gerais");
+		State est2 = new State(null, "São Paulo");
+
+		City c1 = new City(null, "Uberlandia", est1);
+		City c2 = new City(null, "São Paulo", est2);
+		City c3 = new City(null, "Campinas", est2);
+
+		est1.getCities().add(c1);
+		est2.getCities().addAll(Arrays.asList(c2, c3));
+
+		stateRepository.saveAll(Arrays.asList(est1, est2));
+		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+
+
+
 	}
 }
