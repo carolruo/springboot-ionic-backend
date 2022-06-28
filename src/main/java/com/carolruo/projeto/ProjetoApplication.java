@@ -1,13 +1,8 @@
 package com.carolruo.projeto;
 
-import com.carolruo.projeto.domain.Category;
-import com.carolruo.projeto.domain.City;
-import com.carolruo.projeto.domain.Product;
-import com.carolruo.projeto.domain.State;
-import com.carolruo.projeto.repositories.CategoryRepository;
-import com.carolruo.projeto.repositories.CityRepository;
-import com.carolruo.projeto.repositories.ProductRepository;
-import com.carolruo.projeto.repositories.StateRepository;
+import com.carolruo.projeto.domain.*;
+import com.carolruo.projeto.domain.enums.CustomerType;
+import com.carolruo.projeto.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +22,10 @@ public class ProjetoApplication implements CommandLineRunner {
 	private CityRepository cityRepository;
 	@Autowired
 	private StateRepository stateRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private AddressRepository addressRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoApplication.class, args);
@@ -65,8 +64,15 @@ public class ProjetoApplication implements CommandLineRunner {
 		stateRepository.saveAll(Arrays.asList(est1, est2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 
+		Customer cli1 = new Customer(null, "Maria Silva", "maria@gmail.com", "34534545676", CustomerType.INDIVIDUAL_PERSON);
+		cli1.getContactNumbers().addAll(Arrays.asList("1232423", "32454564"));
 
+		Address e1 = new Address(null, "Rua Flores", "300", "Apto 50", "Jardim", "24324", cli1, c1);
+		Address e2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "32432", cli1, c2);
 
+		cli1.getAddresses().addAll(Arrays.asList(e1, e2));
 
+		customerRepository.save(cli1);
+		addressRepository.saveAll(Arrays.asList(e1, e2));
 	}
 }
