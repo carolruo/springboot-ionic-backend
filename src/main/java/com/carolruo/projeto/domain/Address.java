@@ -1,5 +1,7 @@
 package com.carolruo.projeto.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,6 +19,7 @@ public class Address implements Serializable {
     private String neighborhood;
     private String zipCode;
     //O endereço tem a chave estrangeira para cidade e para cliente: (a tabela dele tem uma coluna para cada um deles)
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "customer_id") //nome da coluna que vai corresponder ao id do cliente de x endereço
     private Customer customer;

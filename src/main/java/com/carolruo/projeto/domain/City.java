@@ -1,5 +1,7 @@
 package com.carolruo.projeto.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,7 +14,7 @@ public class City implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private State state;

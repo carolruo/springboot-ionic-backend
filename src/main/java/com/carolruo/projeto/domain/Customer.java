@@ -1,6 +1,7 @@
 package com.carolruo.projeto.domain;
 
 import com.carolruo.projeto.domain.enums.CustomerType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public class Customer implements Serializable {
     private String email;
     private String cpfOrCnpj;
     private Integer customerTypeId;
+    @JsonManagedReference //permitir a serialização de customer, deixar ele buscar o adress do customer respectivo, anotar @JsonBackReference no customer do address
     @OneToMany(mappedBy = "customer")
     private List<Address> addresses = new ArrayList<>();
     @ElementCollection //Entidade fraca
