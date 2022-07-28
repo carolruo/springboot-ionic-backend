@@ -1,6 +1,6 @@
 package com.carolruo.projeto.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,18 +19,18 @@ public class Address implements Serializable {
     private String neighborhood;
     private String zipCode;
     //O endereço tem a chave estrangeira para cidade e para cliente: (a tabela dele tem uma coluna para cada um deles)
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer_id") //nome da coluna que vai corresponder ao id do cliente de x endereço
     private Customer customer;
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private City city;
+    private CustomerCity customerCity;
 
     public Address() {
     }
 
-    public Address(Integer id, String street, String number, String addressContinued, String neighborhood, String zipCode, Customer customer, City city) {
+    public Address(Integer id, String street, String number, String addressContinued, String neighborhood, String zipCode, Customer customer, CustomerCity customerCity) {
         this.id = id;
         this.street = street;
         this.number = number;
@@ -38,7 +38,7 @@ public class Address implements Serializable {
         this.neighborhood = neighborhood;
         this.zipCode = zipCode;
         this.customer = customer;
-        this.city = city;
+        this.customerCity = customerCity;
     }
 
     public Integer getId() {
@@ -97,12 +97,12 @@ public class Address implements Serializable {
         this.customer = customer;
     }
 
-    public City getCity() {
-        return city;
+    public CustomerCity getCity() {
+        return customerCity;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setCity(CustomerCity customerCity) {
+        this.customerCity = customerCity;
     }
 
     @Override

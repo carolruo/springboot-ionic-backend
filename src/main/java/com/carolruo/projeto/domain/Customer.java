@@ -1,7 +1,7 @@
 package com.carolruo.projeto.domain;
 
 import com.carolruo.projeto.domain.enums.CustomerType;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,12 +18,16 @@ public class Customer implements Serializable {
     private String email;
     private String cpfOrCnpj;
     private Integer customerTypeId;
-    @JsonManagedReference //permitir a serialização de customer, deixar ele buscar o adress do customer respectivo, anotar @JsonBackReference no customer do address
     @OneToMany(mappedBy = "customer")
     private List<Address> addresses = new ArrayList<>();
+
     @ElementCollection //Entidade fraca
     @CollectionTable(name = "TELEFONE") // Fica assim: table= TELEFONE colunas= CUSTOMER_ID e CONTACT_NUMBERS
     private Set<String> contactNumbers = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private List<StoreOrder> storeOrders = new ArrayList<>();
 
     public Customer() {
     }
@@ -90,6 +94,18 @@ public class Customer implements Serializable {
 
     public void setContactNumbers(Set<String> contactNumbers) {
         this.contactNumbers = contactNumbers;
+    }
+
+    public void setCustomerTypeId(Integer customerTypeId) {
+        this.customerTypeId = customerTypeId;
+    }
+
+    public List<StoreOrder> getStoreOrders() {
+        return storeOrders;
+    }
+
+    public void setStoreOrders(List<StoreOrder> storeOrders) {
+        this.storeOrders = storeOrders;
     }
 
     @Override

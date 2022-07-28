@@ -2,8 +2,10 @@ package com.carolruo.projeto.services;
 
 import com.carolruo.projeto.domain.Category;
 import com.carolruo.projeto.repositories.CategoryRepository;
+import com.carolruo.projeto.services.exceptions.DataIntegrityException;
 import com.carolruo.projeto.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,5 +21,24 @@ public class CategoryService {
         return category.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()
         ));
+    }
+
+    public Category insert(Category category) {
+        category.setId(null);
+        return categoryRepository.save(category);
+    }
+
+    public Category update(Category category) {
+        find(category.getId());
+        return categoryRepository.save(category);
+    }
+
+    public void delete(Integer id) {
+        find(id);
+        try {
+            categoryRepository.deleteById(id);
+        } catch (DataIntegrityViolationException exception) {
+            throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos!");
+        }
     }
 }

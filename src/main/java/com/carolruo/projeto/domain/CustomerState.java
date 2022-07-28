@@ -1,6 +1,6 @@
 package com.carolruo.projeto.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,21 +9,21 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class State implements Serializable {
+public class CustomerState implements Serializable {
     private static final long serialVersionUID = 1l;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @JsonBackReference
-    @OneToMany(mappedBy = "state")
-    private List<City> cities = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "customerState")
+    private List<CustomerCity> cities = new ArrayList<>();
 
-    public State() {
+    public CustomerState() {
     }
 
-    public State(Integer id, String name) {
+    public CustomerState(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -44,11 +44,11 @@ public class State implements Serializable {
         this.name = name;
     }
 
-    public List<City> getCities() {
+    public List<CustomerCity> getCities() {
         return cities;
     }
 
-    public void setCities(List<City> cities) {
+    public void setCities(List<CustomerCity> cities) {
         this.cities = cities;
     }
 
@@ -56,8 +56,8 @@ public class State implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        State state = (State) o;
-        return id.equals(state.id);
+        CustomerState customerState = (CustomerState) o;
+        return id.equals(customerState.id);
     }
 
     @Override

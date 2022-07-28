@@ -1,31 +1,29 @@
 package com.carolruo.projeto.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class City implements Serializable {
+public class CustomerCity implements Serializable {
     private static final long serialVersionUID = 1l;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "estado_id")
-    private State state;
+    private CustomerState customerState;
 
-    public City() {
+    public CustomerCity() {
     }
 
-    public City(Integer id, String name, State state) {
+    public CustomerCity(Integer id, String name, CustomerState customerState) {
         this.id = id;
         this.name = name;
-        this.state = state;
+        this.customerState = customerState;
     }
 
     public Integer getId() {
@@ -44,20 +42,20 @@ public class City implements Serializable {
         this.name = name;
     }
 
-    public State getState() {
-        return state;
+    public CustomerState getState() {
+        return customerState;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setState(CustomerState customerState) {
+        this.customerState = customerState;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        City city = (City) o;
-        return id.equals(city.id);
+        CustomerCity customerCity = (CustomerCity) o;
+        return id.equals(customerCity.id);
     }
 
     @Override

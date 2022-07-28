@@ -1,5 +1,6 @@
 package com.carolruo.projeto.resources.exceptions;
 
+import com.carolruo.projeto.services.exceptions.DataIntegrityException;
 import com.carolruo.projeto.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,5 +18,13 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+    }
+
+    @ExceptionHandler(DataIntegrityException.class) //Indicar que é um tratador de exceção desse tipo
+    public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
+
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(err);
     }
 }
