@@ -1,6 +1,7 @@
 package com.carolruo.projeto.services;
 
 import com.carolruo.projeto.domain.Category;
+import com.carolruo.projeto.dto.CategoryDTO;
 import com.carolruo.projeto.repositories.CategoryRepository;
 import com.carolruo.projeto.services.exceptions.DataIntegrityException;
 import com.carolruo.projeto.services.exceptions.ObjectNotFoundException;
@@ -53,5 +54,9 @@ public class CategoryService {
         } catch (DataIntegrityViolationException exception) {
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos!");
         }
+    }
+
+    public Category fromDTO(CategoryDTO categoryDTO) {
+        return new Category(categoryDTO.getId(), categoryDTO.getName());
     }
 }

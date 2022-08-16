@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +36,8 @@ public class CategoryResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Category category) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO categoryDTO) {
+        Category category = categoryService.fromDTO(categoryDTO);
         category = categoryService.insert(category);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(category.getId()).toUri(); //chamada que pega a URI do recurso inserido
@@ -43,7 +45,8 @@ public class CategoryResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Category category, @PathVariable Integer id) {
+    public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO categoryDTO, @PathVariable Integer id) {
+        Category category = categoryService.fromDTO(categoryDTO);
         category.setId(id);
         category = categoryService.update(category);
         return ResponseEntity.noContent().build();
