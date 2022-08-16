@@ -4,6 +4,7 @@ import com.carolruo.projeto.domain.Category;
 import com.carolruo.projeto.dto.CategoryDTO;
 import com.carolruo.projeto.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -52,5 +53,16 @@ public class CategoryResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoryDTO>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+        Page<Category> categories = categoryService.findPage(page, linesPerPage, orderBy, direction);
+        Page<CategoryDTO> categoryDTOS = categories.map(obj -> new CategoryDTO(obj)); //O Page já é Java8 Compliance, aceita direto
+        return ResponseEntity.ok().body(categoryDTOS);
     }
 }
