@@ -1,6 +1,7 @@
 package com.carolruo.projeto.resources;
 
 import com.carolruo.projeto.domain.Category;
+import com.carolruo.projeto.dto.CategoryDTO;
 import com.carolruo.projeto.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -20,6 +23,14 @@ public class CategoryResource {
     public ResponseEntity<Category> find(@PathVariable Integer id) {
         Category category = categoryService.find(id);
         return ResponseEntity.ok().body(category);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<Category> categories = categoryService.findAll();
+        //COnverter uma lista em outra lista
+        List<CategoryDTO> categoryDTOS = categories.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(categoryDTOS);
     }
 
     @RequestMapping(method = RequestMethod.POST)
