@@ -18,7 +18,7 @@ public class Customer implements Serializable {
     private String email;
     private String cpfOrCnpj;
     private Integer customerTypeId;
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL) //Toda operacao que deletar um cliente, vai refletir no endereco dele
     private List<Address> addresses = new ArrayList<>();
 
     @ElementCollection //Entidade fraca

@@ -19,33 +19,33 @@ import java.util.Optional;
 public class CategoryService {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    CategoryRepository repo;
 
     public Category find(Integer id) {
-        Optional<Category> category = categoryRepository.findById(id);
+        Optional<Category> category = repo.findById(id);
         return category.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()
         ));
     }
 
     public List<Category> findAll() {
-        return categoryRepository.findAll();
+        return repo.findAll();
     }
 
     public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        return categoryRepository.findAll(pageRequest);
+        return repo.findAll(pageRequest);
     }
 
     public Category insert(Category category) {
         category.setId(null);
-        return categoryRepository.save(category);
+        return repo.save(category);
     }
 
     public Category update(Category category) {
         Category categoryDB = find(category.getId());
         updateData(categoryDB, category);
-        return categoryRepository.save(category);
+        return repo.save(category);
     }
 
     private void updateData(Category categoryDB, Category category) {
@@ -55,7 +55,7 @@ public class CategoryService {
     public void delete(Integer id) {
         find(id);
         try {
-            categoryRepository.deleteById(id);
+            repo.deleteById(id);
         } catch (DataIntegrityViolationException exception) {
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos!");
         }

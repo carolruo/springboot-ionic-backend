@@ -4,6 +4,7 @@ import com.carolruo.projeto.domain.Category;
 import com.carolruo.projeto.domain.Customer;
 import com.carolruo.projeto.dto.CategoryDTO;
 import com.carolruo.projeto.dto.CustomerDTO;
+import com.carolruo.projeto.dto.CustomerNewDTO;
 import com.carolruo.projeto.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,7 @@ public class CustomerResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody CustomerNewDTO customerDTO) {
         Customer customer = customerService.fromDTO(customerDTO);
         customer = customerService.insert(customer);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
