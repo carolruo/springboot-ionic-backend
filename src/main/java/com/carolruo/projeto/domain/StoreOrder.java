@@ -39,6 +39,14 @@ public class StoreOrder implements Serializable {
         this.address = address;
     }
 
+    public double getTotalBill() {
+        double sum = 0;
+        for(ItemOrder io : itemOrders) {
+            sum += io.getSubTotal();
+        }
+        return sum;
+    }
+
     public Integer getId() {
         return id;
     }
