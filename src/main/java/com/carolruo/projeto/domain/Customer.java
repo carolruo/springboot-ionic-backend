@@ -103,9 +103,9 @@ public class Customer implements Serializable {
         this.contactNumbers = contactNumbers;
     }
 
-    public void setCustomerTypeId(Integer customerTypeId) {
-        this.customerTypeId = customerTypeId;
-    }
+//    public void setCustomerTypeId(Integer customerTypeId) {
+//        this.customerTypeId = customerTypeId;
+//    }
 
     public List<StoreOrder> getStoreOrders() {
         return storeOrders;

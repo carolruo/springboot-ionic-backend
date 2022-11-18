@@ -40,7 +40,7 @@ public class StoreOrder implements Serializable {
     }
 
     public double getTotalBill() {
-        double sum = 0;
+        double sum = 0.0;
         for(ItemOrder io : itemOrders) {
             sum += io.getSubTotal();
         }

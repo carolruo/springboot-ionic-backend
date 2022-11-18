@@ -50,17 +50,17 @@ public class ProjetoApplication implements CommandLineRunner {
 		Category cat6 = new Category(null, "Roupas");
 		Category cat7 = new Category(null, "Perfumaria");
 
-		Product p1 = new Product(null, "Computador", new BigDecimal("2000.00"));
-		Product p2 = new Product(null, "Impressora", new BigDecimal("800.00"));
-		Product p3 = new Product(null, "Mouse", new BigDecimal("80.00"));
-		Product p4 = new Product(null, "Mesa Escritorio", new BigDecimal("80.00"));
-		Product p5 = new Product(null, "Toalha", new BigDecimal("80.00"));
-		Product p6 = new Product(null, "Colcha", new BigDecimal("80.00"));
-		Product p7 = new Product(null, "TV", new BigDecimal("80.00"));
-		Product p8 = new Product(null, "Roçadeira", new BigDecimal("80.00"));
-		Product p9 = new Product(null, "Abajour", new BigDecimal("80.00"));
-		Product p10 = new Product(null, "Pendente", new BigDecimal("80.00"));
-		Product p11 = new Product(null, "Shampoo", new BigDecimal("80.00"));
+		Product p1 = new Product(null, "Computador",2000.00);
+		Product p2 = new Product(null, "Impressora", 800.00);
+		Product p3 = new Product(null, "Mouse", 80.00);
+		Product p4 = new Product(null, "Mesa Escritorio", 80.00);
+		Product p5 = new Product(null, "Toalha", 80.00);
+		Product p6 = new Product(null, "Colcha", 80.00);
+		Product p7 = new Product(null, "TV", 80.00);
+		Product p8 = new Product(null, "Roçadeira", 80.00);
+		Product p9 = new Product(null, "Abajour", 80.00);
+		Product p10 = new Product(null, "Pendente", 80.00);
+		Product p11 = new Product(null, "Shampoo", 80.00);
 
 		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProducts().addAll(Arrays.asList(p2, p4));

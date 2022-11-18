@@ -2,11 +2,13 @@ package com.carolruo.projeto.domain;
 
 import com.carolruo.projeto.domain.enums.PaymentStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("slip")
 public class PaymentSlip extends Payment {
     private static final long serialVersionUID = 1l;
 

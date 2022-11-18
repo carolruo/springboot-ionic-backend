@@ -10,7 +10,7 @@ public class ProductDTO implements Serializable {
 
     private Integer id;
     private String name;
-    private BigDecimal price;
+    private Double price;
 
     public ProductDTO() {}
 
@@ -36,11 +36,11 @@ public class ProductDTO implements Serializable {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }
