@@ -36,4 +36,8 @@ public class ProductService {
         return repository.search(name, categories, pageRequest);
 
     }
+
+    public Product findById(Integer id) {
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado. Id: " + id));
+    }
 }

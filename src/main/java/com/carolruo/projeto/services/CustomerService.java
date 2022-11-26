@@ -90,14 +90,16 @@ public class CustomerService {
                 city);
         customer.getAddresses().add(address);
         customer.getContactNumbers().add(customerDTO.getContactNumber1());
-        if (customerDTO.getContactNumber2()!=null) {
+        if (customerDTO.getContactNumber2() != null) {
             customer.getContactNumbers().add(customerDTO.getContactNumber2());
-
         }
-        if (customerDTO.getContactNumber3()!=null) {
+        if (customerDTO.getContactNumber3() != null) {
             customer.getContactNumbers().add(customerDTO.getContactNumber3());
-
         }
         return customer;
+    }
+
+    public Customer findById(Integer id) {
+        return repo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Cliente não cadastrado. Id: " + id));
     }
 }
